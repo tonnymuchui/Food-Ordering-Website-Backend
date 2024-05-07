@@ -16,7 +16,8 @@ import java.util.Objects;
 @Getter
 @Setter
 @ToString
-@RequiredArgsConstructor
+@AllArgsConstructor
+@NoArgsConstructor
 public class User {
 
 	@Id
@@ -39,7 +40,7 @@ public class User {
 	
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
 	@ToString.Exclude
-	private List<RabbitConnectionDetails.Address> addresses = new ArrayList<>();
+	private List<Address> addresses = new ArrayList<>();
 	
 	private String status;
 
