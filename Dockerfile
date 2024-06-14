@@ -4,7 +4,7 @@ FROM openjdk:21-slim AS build
 COPY . .
 
 # Run Maven to build your project, skipping tests
-RUN mvn clean package -DskipTests
+RUN mvnw clean package -DskipTests
 
 # Create a new stage based on openjdk:21-slim for the final image
 FROM openjdk:21-slim
