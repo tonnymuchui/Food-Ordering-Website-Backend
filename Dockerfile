@@ -30,7 +30,7 @@ FROM eclipse-temurin:21-jre-alpine
 WORKDIR /app
 
 # Copy the built jar file from the first stage
-COPY --from=build /target/FoodOrdering-0.0.1-SNAPSHOT.jar app.jar
+COPY --from=build /app/target/FoodOrdering-0.0.1-SNAPSHOT.jar app.jar
 
 # Expose the port the application will run on
 EXPOSE 5454
