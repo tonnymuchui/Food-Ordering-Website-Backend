@@ -1,13 +1,20 @@
-FROM openjdk:21-slim AS build
+FROM maven:3.9.2-eclipse-temurin-21 AS build
 
 # Copy your project files to the build stage
 COPY . .
+# Copy the pom.xml and download dependencies
+COPY pom.xml .
 
+# Download the dependencies without running tests
+RUN mvn dependency:go-offline -B
+
+# Copy the rest of the application source code
+COPY src ./src
 # Run Maven to build your project, skipping tests
 RUN mvn clean package -DskipTests
 
-# Create a new stage based on openjdk:21-slim for the final image
-FROM openjdk:21-slim
+# Second stage: Run the application
+FROM eclipse-temurin:21-jre-alpine
 
 # Copy the built JAR file from the build stage to the final image
 COPY --from=build /target/FoodOrdering-0.0.1-SNAPSHOT.jar FoodOrdering.jar
